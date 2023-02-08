@@ -11,10 +11,4 @@ public class SimpleStack<T> {
     public void push(T value) {
         linked.addFirst(value);
     }
-
-    public static void main(String[] args) {
-        SimpleStack<Integer> stack = new SimpleStack<>();
-        stack.push(5);
-        System.out.println(stack.linked.deleteFirst());
-    }
 }
