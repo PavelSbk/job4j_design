@@ -1,6 +1,7 @@
 package ru.job4j.set;
 
 import ru.job4j.collection.SimpleArrayList;
+
 import java.util.Iterator;
 import java.util.Objects;
 
@@ -10,21 +11,23 @@ public class SimpleSet<T> implements Set<T> {
 
     @Override
     public boolean contains(T value) {
+        boolean rst = false;
         for (T v : set) {
             if (Objects.equals(v, value)) {
-                return true;
+                rst = true;
+                break;
             }
         }
-        return false;
+        return rst;
     }
 
     @Override
     public boolean add(T value) {
-        if (!contains(value)) {
+        boolean rst = !contains(value);
+        if (rst) {
             set.add(value);
-            return true;
         }
-        return false;
+        return rst;
     }
 
     @Override
