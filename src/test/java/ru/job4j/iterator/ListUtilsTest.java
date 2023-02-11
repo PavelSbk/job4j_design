@@ -54,7 +54,7 @@ class ListUtilsTest {
         ListUtils.addAfter(input, 0, 2);
         ListUtils.addAfter(input, 2, 4);
         ListUtils.replaceIf(input, v -> v == 2, 5);
-        assertThat(input).hasSize(3).containsSequence(1, 5, 3);
+        assertThat(input).hasSize(4).containsSequence(1, 5, 3, 4);
     }
 
     @Test
