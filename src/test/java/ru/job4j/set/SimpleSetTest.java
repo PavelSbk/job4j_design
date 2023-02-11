@@ -29,6 +29,6 @@ class SimpleSetTest {
         assertThat(set.add(1)).isFalse();
         assertThat(set.add(3)).isTrue();
         assertThat(set.add(1)).isFalse();
-        assertThat(set).containsOnly(1,2,3);
+        assertThat(set).containsOnly(1, 2, 3);
     }
 }
