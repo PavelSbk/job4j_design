@@ -17,12 +17,19 @@ public class User {
         this.birthday = birthday;
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, children, birthday);
+    }
+
     public static void main(String[] args) {
         String ln = System.lineSeparator();
         Map<User, Object> map = new HashMap<>();
         Calendar birthday = Calendar.getInstance();
-        map.put(new User("Pavel", 1, birthday), new Object());
-        map.put(new User("Pavel", 1, birthday), new Object());
+        User user1 = new User("Pavel", 1, birthday);
+        User user2 = new User("Pavel", 1, birthday);
+        map.put(user1, new Object());
+        map.put(user2, new Object());
         map.forEach((k, v) -> System.out.println(
                 "User: " + k + ln
                         + "  hashCode: " + k.hashCode() + ln
