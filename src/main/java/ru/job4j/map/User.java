@@ -18,6 +18,11 @@ public class User {
     }
 
     @Override
+    public boolean equals(Object o) {
+        return false;
+    }
+
+    @Override
     public int hashCode() {
         return Objects.hash(name, children, birthday);
     }
