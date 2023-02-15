@@ -17,9 +17,15 @@ public class User {
         this.birthday = birthday;
     }
 
+
+
     @Override
     public boolean equals(Object o) {
-        return false;
+        if (this == o) return true;
+        if (!(o instanceof User user)) return false;
+        return children == user.children
+                && Objects.equals(name, user.name)
+                && Objects.equals(birthday, user.birthday);
     }
 
     @Override
