@@ -15,7 +15,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
     private MapEntry<K, V>[] table = new MapEntry[capacity];
 
     static int hash(int hashCode) {
-        return (hashCode) ^ (hashCode >>> 16);
+        return hashCode ^ (hashCode >>> 16);
     }
 
     private int indexFor(int hash) {
@@ -50,7 +50,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
 
     @Override
     public boolean put(K key, V value) {
-        if (count == capacity * LOAD_FACTOR) {
+        if (count >= capacity * LOAD_FACTOR) {
             expand();
         }
         boolean rst = checkBucketForNull(key);
@@ -64,16 +64,17 @@ public class SimpleMap<K, V> implements Map<K, V> {
 
     @Override
     public V get(K key) {
-        if (!checkKey(key)) {
-            return null;
+        V rst = null;
+        if (checkKey(key)) {
+            rst = table[bucket(key)].value;
         }
-        return table[bucket(key)].value;
+        return rst;
     }
 
     @Override
     public boolean remove(K key) {
         boolean rst = checkKey(key);
-        if (checkKey(key)) {
+        if (rst) {
             table[bucket(key)] = null;
             count--;
             modCount++;
