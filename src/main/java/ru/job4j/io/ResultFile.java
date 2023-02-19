@@ -1,6 +1,7 @@
 package ru.job4j.io;
 
 import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class ResultFile {
 
@@ -28,7 +29,7 @@ public class ResultFile {
     public static void writeMTable(int size, String path) {
         try (FileOutputStream out = new FileOutputStream(path)) {
             out.write(tableToString(multiple(size)).getBytes());
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -37,7 +38,7 @@ public class ResultFile {
         try (FileOutputStream out = new FileOutputStream("data/dataresult.txt")) {
             out.write("Hello, world!".getBytes());
             out.write(System.lineSeparator().getBytes());
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         writeMTable(20, "data/multipleTable.txt");
