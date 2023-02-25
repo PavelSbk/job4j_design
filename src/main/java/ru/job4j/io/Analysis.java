@@ -1,58 +1,38 @@
 package ru.job4j.io;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Analysis {
 
-    private List<String> separator(List<String> list) {
-        List<String> rst = new ArrayList<>();
-        boolean flag = false;
-        for (String s : list) {
-            if (!flag && (s.contains("500 ") || s.contains("400 "))) {
-                rst.add(s);
-                flag = true;
-                continue;
-            }
-            if (flag && (s.contains("200 ") || s.contains("300 "))) {
-                rst.add(s);
-                flag = false;
-            }
-        }
-        return rst;
-    }
-
-    private List<String> splitter(List<String> list) {
-        return separator(list).stream()
-                .map(s -> s.split(" "))
-                .flatMap(Arrays::stream)
-                .filter(st -> !st.contains("200")
-                        && !st.contains("300")
-                        && !st.contains("400")
-                        && !st.contains("500"))
-                .map(str -> str + ";")
-                .collect(Collectors.toList());
-    }
-
-    private List<String> crashRange(List<String> list) {
-        List<String> rst = new ArrayList<>();
-        List<String> slitted = splitter(list);
-        for (int i = 0; i < slitted.size() - 1; i += 2) {
-            rst.add(slitted.get(i) + slitted.get(i + 1));
-        }
-        return rst;
-    }
-
     public void unavailable(String source, String target) {
+        Pattern p = Pattern.compile("[0-2][0-9]:[0-5][0-9]:[0-5][0-9]");
         try (BufferedReader in = new BufferedReader(new FileReader(source));
              PrintWriter out = new PrintWriter(
                      new BufferedOutputStream(
                              new FileOutputStream(target)))) {
-            List<String> temp = crashRange(in.lines().toList());
-            temp.forEach(out::println);
+            boolean flag = true;
+            String temp = null;
+            while (in.ready()) {
+                List<String> splitter = in.lines().toList();
+                for (String s : splitter) {
+                    Matcher m = p.matcher(s);
+                    if (flag && (s.contains("400") || s.contains("500"))) {
+                        while (m.find()) {
+                            temp = m.group() + ";";
+                        }
+                        flag = false;
+                    }
+                    if (!flag && (s.contains("200") || s.contains("300"))) {
+                        while (m.find()) {
+                            out.println(temp + m.group() + ";");
+                        }
+                        flag = true;
+                    }
+                }
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
