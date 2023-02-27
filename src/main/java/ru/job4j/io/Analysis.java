@@ -1,7 +1,6 @@
 package ru.job4j.io;
 
 import java.io.*;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -16,21 +15,19 @@ public class Analysis {
             boolean flag = true;
             String temp = null;
             while (in.ready()) {
-                List<String> splitter = in.lines().toList();
-                for (String s : splitter) {
-                    Matcher m = p.matcher(s);
-                    if (flag && (s.contains("400") || s.contains("500"))) {
-                        while (m.find()) {
-                            temp = m.group() + ";";
-                        }
-                        flag = false;
+                String s = in.readLine();
+                Matcher m = p.matcher(s);
+                if (flag && (s.contains("400") || s.contains("500"))) {
+                    while (m.find()) {
+                        temp = m.group() + ";";
                     }
-                    if (!flag && (s.contains("200") || s.contains("300"))) {
-                        while (m.find()) {
-                            out.println(temp + m.group() + ";");
-                        }
-                        flag = true;
+                    flag = false;
+                }
+                if (!flag && (s.contains("200") || s.contains("300"))) {
+                    while (m.find()) {
+                        out.println(temp + m.group() + ";");
                     }
+                    flag = true;
                 }
             }
         } catch (IOException e) {
