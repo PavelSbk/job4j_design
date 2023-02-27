@@ -1,13 +1,10 @@
 package ru.job4j.io;
 
 import java.io.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Analysis {
 
     public void unavailable(String source, String target) {
-        Pattern p = Pattern.compile("[0-2][0-9]:[0-5][0-9]:[0-5][0-9]");
         try (BufferedReader in = new BufferedReader(new FileReader(source));
              PrintWriter out = new PrintWriter(
                      new BufferedOutputStream(
@@ -15,18 +12,13 @@ public class Analysis {
             boolean flag = true;
             String temp = null;
             while (in.ready()) {
-                String s = in.readLine();
-                Matcher m = p.matcher(s);
-                if (flag && (s.contains("400") || s.contains("500"))) {
-                    while (m.find()) {
-                        temp = m.group() + ";";
-                    }
+                String[] strings = in.readLine().split(" ");
+                if (flag && (strings[0].contains("400") || strings[0].contains("500"))) {
+                    temp = strings[1];
                     flag = false;
                 }
-                if (!flag && (s.contains("200") || s.contains("300"))) {
-                    while (m.find()) {
-                        out.println(temp + m.group() + ";");
-                    }
+                if (!flag && (strings[0].contains("200") || strings[0].contains("300"))) {
+                    out.println(temp + ";" + strings[1] + ";");
                     flag = true;
                 }
             }
