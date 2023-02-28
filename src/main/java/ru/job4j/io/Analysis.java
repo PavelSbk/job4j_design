@@ -6,9 +6,7 @@ public class Analysis {
 
     public void unavailable(String source, String target) {
         try (BufferedReader in = new BufferedReader(new FileReader(source));
-             PrintWriter out = new PrintWriter(
-                     new BufferedOutputStream(
-                             new FileOutputStream(target)))) {
+             PrintWriter out = new PrintWriter(target)) {
             boolean flag = true;
             String temp = null;
             while (in.ready()) {
@@ -18,12 +16,16 @@ public class Analysis {
                     flag = false;
                 }
                 if (!flag && (strings[0].contains("200") || strings[0].contains("300"))) {
-                    out.println(temp + ";" + strings[1] + ";");
+                    out.append(temp)
+                            .append(';')
+                            .append(strings[1])
+                            .append(';')
+                            .append(System.lineSeparator());
                     flag = true;
                 }
             }
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 
