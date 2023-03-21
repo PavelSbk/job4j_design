@@ -11,11 +11,11 @@ import java.util.zip.ZipEntry;
 
 public class Zip {
 
-    public void packFiles(List<File> sources, File target) {
+    public void packFiles(List<Path> sources, File target) {
         try (ZipOutputStream zip = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(target)))) {
-            for (File f : sources) {
-                zip.putNextEntry(new ZipEntry(f.getPath()));
-                try (BufferedInputStream out = new BufferedInputStream(new FileInputStream(f))) {
+            for (Path path : sources) {
+                zip.putNextEntry(new ZipEntry(path.toFile().getPath()));
+                try (BufferedInputStream out = new BufferedInputStream(new FileInputStream(path.toFile().getPath()))) {
                     zip.write(out.readAllBytes());
                 }
             }
@@ -54,11 +54,8 @@ public class Zip {
         ArgsName arg = ArgsName.of(args);
         validator(arg);
         Path source = Paths.get(arg.get("d"));
-        List<File> list = Search
-                .search(source, path -> !path.toFile().getName().endsWith(arg.get("e")))
-                .stream()
-                .map(Path::toFile)
-                .toList();
+        List<Path> list = Search
+                .search(source, path -> !path.toFile().getName().endsWith(arg.get("e")));
         Zip zip = new Zip();
         zip.packSingleFile(
                 new File("./pom.xml"),
