@@ -17,7 +17,7 @@ public class RegexExample {
         boolean isPresent = matcher.matches();
         System.out.println(isPresent);
         Matcher matcher1 = pattern.matcher("Я учусь на курсе Job4j");
-        Matcher matcher2 = pattern.matcher("я учусь на Job4j"); // регистрозависимость
+        Matcher matcher2 = pattern.matcher("я учусь на Job4j");
         System.out.println(matcher1.matches());
         System.out.println(matcher2.matches());
         System.out.println("===========================================");
@@ -124,7 +124,7 @@ public class RegexExample {
         }
         System.out.println("===========================================");
         String str = "123+=-456:/789";
-        String[] rsl = str.split("\\D+"); // "\\D+" любой нецифровой символ от одного раза
+        String[] rsl = str.split("\\D+");
         System.out.println(Arrays.toString(rsl));
         System.out.println("===========================================");
         /**
@@ -139,7 +139,7 @@ public class RegexExample {
             System.out.println(matcher.group());
         }
         System.out.println();
-        pattern = Pattern.compile("\\b\\d{2}\\.\\d{2}\\.\\d{4}\\b"); // \b - ограничение (отдельное слово)
+        pattern = Pattern.compile("\\b\\d{2}\\.\\d{2}\\.\\d{4}\\b");
         matcher = pattern.matcher("24.04.1987 11.11.111111 99.99.99991 99.99.9999 99999999 0000.00.00");
         while (matcher.find()) {
             System.out.println(matcher.group());
