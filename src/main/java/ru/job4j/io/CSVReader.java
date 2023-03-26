@@ -6,13 +6,11 @@ import java.util.*;
 public class CSVReader {
 
     public static void handle(ArgsName argsName) {
+        validator(argsName);
         String ln = System.lineSeparator();
         List<List<String>> table = new ArrayList<>();
         String delimiter = argsName.get("delimiter");
         String[] filter = argsName.get("filter").split(",");
-        if (!new File(argsName.get("path")).exists()) {
-            throw new IllegalArgumentException("File does not exist.");
-        }
         File path = new File(argsName.get("path"));
         File out = new File(argsName.get("out"));
         try (Scanner scanner = new Scanner(new FileReader(path))) {
@@ -35,6 +33,21 @@ public class CSVReader {
             }
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private static void validator(ArgsName argsName) {
+        if (!new File(argsName.get("path")).exists()) {
+            throw new IllegalArgumentException("File does not exist.");
+        }
+        if (argsName.get("filter").isEmpty()) {
+            throw new IllegalArgumentException("Filter does not exist.");
+        }
+        if (argsName.get("delimiter").isEmpty()) {
+            throw new IllegalArgumentException("Delimiter does not exist.");
+        }
+        if (!new File(argsName.get("out")).getName().endsWith(".csv")) {
+            throw new IllegalArgumentException("Invalid output file type.");
         }
     }
 
