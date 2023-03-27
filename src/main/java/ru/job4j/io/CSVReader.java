@@ -43,8 +43,8 @@ public class CSVReader {
         if (argsName.get("filter").isEmpty()) {
             throw new IllegalArgumentException("Filter does not exist.");
         }
-        if (argsName.get("delimiter").isEmpty()) {
-            throw new IllegalArgumentException("Delimiter does not exist.");
+        if (!(";".equals(argsName.get("delimiter")) || ",".equals(argsName.get("delimiter")))) {
+            throw new IllegalArgumentException("Wrong delimiter character.");
         }
         if (!new File(argsName.get("out")).getName().endsWith(".csv")) {
             throw new IllegalArgumentException("Invalid output file type.");
