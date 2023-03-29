@@ -1,0 +1,18 @@
+<?xml version="1.1" encoding="UTF-8" ?>
+<animal name="Pumba" age="30" danger="true" sex="M">
+    <species>
+        <specie>Boar</specie>
+        <specie>Cloven-hoofed</specie>
+    </species>
+    <cage hight="2000" lenght="2000" width="2000" number="2152"/>
+</animal>
+
+        <!--Animal -->
+        <!--        { -->
+        <!--        species = [Boar, Cloven-hoofed], -->
+        <!--        name = 'Pumba', -->
+        <!--        age = 5, -->
+        <!--        danger = true, -->
+        <!--        sex = M, -->
+        <!--        cage = Cage { hight = 2000, lenght = 2000, width = 2000, number = 2152}-->
+        <!--        }-->
