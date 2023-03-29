@@ -18,9 +18,15 @@ public class EchoServer {
                              new InputStreamReader(socket.getInputStream()))) {
                     out.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
                     String str = in.readLine();
-                    if (str.contains("Bye")) {
-                        out.write("Connection: close".getBytes());
-                        server.close();
+                    if (str.contains("?msg=")) {
+                        if (str.toLowerCase().contains("hello")) {
+                            out.write("Hello, dear friend.".getBytes());
+                        } else if (str.toLowerCase().contains("exit")) {
+                            out.write("Server: closed".getBytes());
+                            server.close();
+                        } else {
+                            out.write("What".getBytes());
+                        }
                     }
                     for (; str != null && !str.isEmpty(); str = in.readLine()) {
                         System.out.println(str);
@@ -28,7 +34,6 @@ public class EchoServer {
                     out.flush();
                 }
             }
-
         }
     }
 }
