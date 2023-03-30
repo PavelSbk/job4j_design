@@ -1,0 +1,4 @@
+c:\projects\job4j_tracker\src\test\java\ru\job4j\tracker\StartUITest.java
+c:\projects\job4j_tracker\target\surefire-reports\ru.job4j.tracker.StartUITest.txt
+c:\projects\job4j_tracker\target\surefire-reports\TEST-ru.job4j.tracker.StartUITest.xml
+c:\projects\job4j_tracker\target\test-classes\ru\job4j\tracker\StartUITest.class
