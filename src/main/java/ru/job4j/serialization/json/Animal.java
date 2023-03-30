@@ -31,6 +31,30 @@ public class Animal {
         this.cage = cage;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public boolean isDanger() {
+        return danger;
+    }
+
+    public char getSex() {
+        return sex;
+    }
+
+    public String[] getSpecies() {
+        return species;
+    }
+
+    public Cage getCage() {
+        return cage;
+    }
+
     @Override
     public String toString() {
         return "Animal {"
