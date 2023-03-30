@@ -7,12 +7,13 @@ public class Main {
 
     public static void main(String[] args) {
         final Gson gson = new GsonBuilder().create();
-        final Animal boar = new Animal(new String[]{"Boar", "Cloven-hoofed"},
+        final Animal boar = new Animal(
                 "Pumba",
                 5,
                 true,
                 'M',
-                new Cage(2000, 2000, 2000, 8041));
+                new Cage(2000, 2000, 2000, 8041),
+                "Boar", "Cloven-hoofed");
         final String boarJson =
                 "{"
                         + "\"species\":"

@@ -1,18 +1,28 @@
 package ru.job4j.serialization.json;
 
+import javax.xml.bind.annotation.*;
 import java.util.Arrays;
 
+@XmlRootElement(name = "animal")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Animal {
 
-    private final String[] species;
-    private final String name;
-    private final int age;
-    private final boolean danger;
-    private final char sex;
-    private final Cage cage;
+    private String name;
+    private int age;
+    private boolean danger;
+    private char sex;
+
+    @XmlElementWrapper(name = "species")
+    @XmlElement(name = "specie")
+    private String[] species;
+
+    private Cage cage;
 
 
-    public Animal(String[] species, String name, int age, boolean danger, char sex, Cage cage) {
+    public Animal() {
+    }
+
+    public Animal(String name, int age, boolean danger, char sex, Cage cage, String... species) {
         this.species = species;
         this.name = name;
         this.age = age;
