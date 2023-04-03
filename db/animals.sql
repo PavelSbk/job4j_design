@@ -48,20 +48,33 @@ values
 (4, 456),
 (5, 589);
 
+create table animal_cage (
+	id serial primary key,
+	name varchar(255),
+	cage int references cage_number(id) unique
+);
+
+insert into animal_cage
+values
+(1, 'Boar', 1),
+(2, 'Lion', 2),
+(3, 'Alligator', 3),
+(4, 'Ostrich', 4),
+(5, 'Grizzly,', 5);
+
 create table animals (
 	id serial primary key,
 	name varchar(255),
-	class int references animal_class(id),
-	cage int references cage_number(id) unique
+	class int references animal_class(id)
 );
 
 insert into animals
 values
-(1, 'Boar', 1, 1),
-(2, 'Lion', 2, 2),
-(3, 'Alligator', 3, 3),
-(4, 'Ostrich', 3, 4),
-(5, 'Grizzly,', 1, 5);
+(1, 'Boar', 1),
+(2, 'Lion', 2),
+(3, 'Alligator', 3),
+(4, 'Ostrich', 3),
+(5, 'Grizzly,', 1);
 
 create table animal_areas (
 	id serial primary key,
